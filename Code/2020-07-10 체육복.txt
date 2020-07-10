@@ -1,0 +1,39 @@
+class Solution {
+    public int solution(int n, int[] lost, int[] reserve) {
+        int[] clothes = new int[n+2];
+        int answer = n;
+        clothes[0] = -10;
+        clothes[n+1] = -10;
+
+
+        for(int i=0; i<lost.length; i++){
+            clothes[lost[i]] -= 1;
+        }
+
+        for(int i=0; i<reserve.length; i++){
+            clothes[reserve[i]] += 1;
+        }
+
+        for(int i=0; i<=n; i++){
+            // 체육복이 없다면
+            if(clothes[i] == -1){
+                // 왼쪽 학생이 여벌 옷이 있다면 빌림
+                if(clothes[i-1] == 1){
+                    clothes[i-1] -= 1;
+                    clothes[i] += 1;
+                }
+                // 오른쪽 학생이 여별 옷이 있다면 빌림
+                else if(clothes[i+1] == 1){
+                    clothes[i+1] -= 1;
+                    clothes[i] += 1;
+                }
+                // 빌릴 수 없다면
+                else{
+                    answer --;
+                }
+            }
+        }
+
+        return answer;
+    }
+}
