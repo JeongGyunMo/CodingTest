@@ -1,0 +1,71 @@
+#include <string>
+#include <vector>
+#include <stdio.h>
+#include <algorithm>
+using namespace std;
+int col, row;
+int bitCount(int num)
+{
+	int count = 0;
+	while (num > 0) {
+		if (num & 1) {
+			count++;
+		}
+		num >>= 1;
+	}
+	return count;
+}
+
+int asc(int a, int b) { return bitCount(a) < bitCount(b); }
+
+bool checkCandKey(vector <vector<string >> relation, int flag)
+{
+	//유일성 체크
+	for (int i = 0; i < row - 1; i++) { //마지막은 검사됨
+		for (int j = i + 1; j < row; j++) {
+			int unique = 1;
+			for (int k = 0; k < col; k++) {
+				if (flag & (1 << k)) { // 현재 체크 할 bit
+					//Col중 하나라도 다르면 유일성 OK, i와 j는 유일성을 가짐
+					if (relation[i][k] != relation[j][k]) {
+						unique = 0;
+						break;
+					}
+				}
+			}
+			if (unique) {
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+int solution(vector <vector<string >> relation) {
+	int answer = 0;
+	col = relation[0].size();
+	row = relation.size();
+	vector<int> checked;
+	for (int i = 1; i < (1 << col); i++) {
+		if (checkCandKey(relation, i)) {
+			checked.push_back(i);
+		}
+	}
+	sort(checked.begin(), checked.end(), asc);
+
+	while (!checked.empty()) {
+		int flag = checked[0]; //최소부터
+		checked.erase(checked.begin());
+		answer++;
+		vector<int> ::iterator itr = checked.begin();
+		for (itr; itr != checked.end();) {
+			if (((*itr) & flag) == flag) { //현재 설정된 후보키를 포함하는 후보들은 제거한다.
+				itr = checked.erase(itr);
+			}
+			else {
+				itr++;
+			}
+		}
+	}
+	return answer;
+}
