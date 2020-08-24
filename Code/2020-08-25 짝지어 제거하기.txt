@@ -1,0 +1,26 @@
+import java.util.*;
+class Solution
+{
+    public int solution(String s)
+    {
+       char[] chars = s.toCharArray();
+        
+       LinkedList<Character> stack = new LinkedList<>();
+        
+        for(char c : chars){
+            if(!stack.isEmpty()){
+                if(stack.peekLast() == c){
+                    stack.pollLast();
+                    continue;
+                }
+            }
+            stack.offer(c);
+        }
+        
+        for (char t : stack){
+            System.out.print(t);
+        }
+        
+        return stack.size() ==0? 1 : 0;
+    }
+}
