@@ -1,0 +1,23 @@
+import java.util.Arrays;
+
+class Solution {
+  public  int solution(int[] arr) {
+	Arrays.sort(arr);
+	int lcm = arr[0] * arr[1] / gcd(arr[0], arr[1]);
+		
+	for (int i = 2; i < arr.length; i++) {
+		lcm = lcm * arr[i] / gcd(lcm, arr[i]);
+	}
+		
+	return lcm;
+  }
+	
+  public static int gcd(int small, int big) {
+	while (small != 0) {
+		int nmg = big % small;
+		big = small;
+		small = nmg;
+	}
+	return big;
+  }
+}
