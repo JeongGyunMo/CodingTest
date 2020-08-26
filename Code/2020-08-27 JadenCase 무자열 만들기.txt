@@ -1,0 +1,27 @@
+class Solution {
+  public String solution(String s) {
+      String answer = "";
+      String[] words = s.split(" ");
+      
+      for (int i = 0; i < words.length; i++) {
+          for (int j = 0; j < words[i].length(); j++) {
+              if (j == 0) {
+                  answer += Character.toString(words[i].charAt(j)).toUpperCase(); 
+                                       // Character.toUpperCase(words[i].charAt(j));
+              } else {
+                  answer += Character.toString(words[i].charAt(j)).toLowerCase();
+              }
+          }
+          
+          if (i != words.length-1) {
+              answer += " ";
+          }
+      }
+      
+      if (s.substring(s.length() - 1, s.length()).equals(" ")) {
+          answer += " ";
+      }
+      
+      return answer;
+  }
+}
