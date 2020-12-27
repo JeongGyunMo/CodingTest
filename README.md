@@ -72,7 +72,6 @@
 
     예를 들어 s가 pPoooyY면 true를 return하고 Pyy라면 false를 return합니다.
 
-    제한사항
         문자열 s의 길이 : 50 이하의 자연수
         문자열 s는 알파벳으로만 이루어져 있습니다.
 
